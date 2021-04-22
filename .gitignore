@@ -1,6 +1,7 @@
 #Root
 /docs
 node_modules
+server/rubberband-server/src/config/
 .editorconfig 
 .env
 
