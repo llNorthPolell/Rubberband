@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+body { 
+    width:100%;
+    padding-top: 5%; 
+}
+
+nav{
+    width:100%;
+}
+
+
+#navpanel{
+    position:absolute; 
+    top:5%;
+    width: 10%;
+}
+
+#navSearch{
+    width: 50%;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+#searchBar{
+    width: 75%;
+}
+
+#content{
+    width:100%;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+#playerDiv{
+    width: 80%;
+    margin: 0 auto;
+    display: inline-block;
+    background-color: #232323;
+    color:white;
+}
+
+#recordButton{
+    color:red;
+}
+
+#playerDiv>button{
+    color:white;
+}
+
+#timelineDiv{
+    background-color:#232323;
+    margin: 0 auto;
+    display: inline-block;
+    height: 50px;
+}
