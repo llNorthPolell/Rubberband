@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { EditorComponent } from './editor/editor.component';
 import { WorkspaceComponent } from './editor/workspace/workspace.component';
-import { RulerComponent } from './editor/workspace/ruler/ruler.component';
+import { TimelineComponent } from './editor/workspace/timeline/timeline.component';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { RulerComponent } from './editor/workspace/ruler/ruler.component';
     CommonModule,
     SharedModule
   ],
-  declarations: [HomeComponent, EditorComponent, WorkspaceComponent, RulerComponent],
+  declarations: [HomeComponent, EditorComponent, WorkspaceComponent, TimelineComponent],
   exports: [
     HomeComponent,
     EditorComponent

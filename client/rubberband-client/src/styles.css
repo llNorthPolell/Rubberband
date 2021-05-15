@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-body { 
-    width:100%;
-    padding-top: 5%; 
+html,body { 
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0; 
 }
 
 nav{
@@ -27,6 +29,8 @@ nav{
 
 #content{
     width:100%;
+    height:100%;
+    padding-top:1%;
     margin: 0 auto;
     display: inline-block;
 }
@@ -47,9 +51,46 @@ nav{
     color:white;
 }
 
+#workspaceDiv{
+    background-color:#232323;
+    overflow:scroll;
+}
+
+.completefill {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100% !important;
+    /*border: white solid 1px; */
+}
+
+#workspaceTopRow{
+    height:5%;
+}
+
+#newTrackBtn{
+    width: 100%;
+}
+
 #timelineDiv{
     background-color:#232323;
-    margin: 0 auto;
-    display: inline-block;
-    height: 50px;
+    height:100%;
+}
+
+.trackDiv{
+    background-color:#444444;
+    height:15%;
+    border-bottom: #232323 solid 1px;
+    color:white;
+}
+
+.trackDiv > input{
+    height:15%;
+    width: 50%;
+}
+
+.deleteBtn{
+    width:5%;
+    height:15%;
+    text-align:center;
+    word-Wrap: break-word;
 }

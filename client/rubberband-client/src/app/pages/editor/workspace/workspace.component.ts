@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkspaceComponent implements OnInit {
 
-  constructor() { }
+  tracks : string[];
+
+  constructor() { 
+    this.tracks = [];
+  }
 
   ngOnInit() {
   }
 
+
+  addNewTrack(){
+    this.tracks.push('Track '+this.tracks.length);
+  }
+
+  removeTrack(){
+    this.tracks.pop();
+  }
 }
