@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PlayerStateService } from './shared/player/player-state.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
 //    HttpModule,
     PagesModule,
-    SharedModule
+    SharedModule,
+    NoopAnimationsModule
   ],
-  providers: [],
+  providers: [PlayerStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

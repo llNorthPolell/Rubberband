@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TimelineComponent } from './timeline.component';
+import { TrackTimelineComponent } from './track-timeline.component';
 
 describe('TimelineComponent', () => {
-  let component: TimelineComponent;
-  let fixture: ComponentFixture<TimelineComponent>;
+  let component: TrackTimelineComponent;
+  let fixture: ComponentFixture<TrackTimelineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimelineComponent ]
+      declarations: [ TrackTimelineComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimelineComponent);
+    fixture = TestBed.createComponent(TrackTimelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

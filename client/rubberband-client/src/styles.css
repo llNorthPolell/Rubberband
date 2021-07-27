@@ -1,16 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global */
 html,body { 
     width: 100%;
     height: 100%;
-    padding: 0;
-    margin: 0; 
+    margin: 0 auto;
+    border-width:0;
+    padding:0;   
 }
+
+div { display: block; }
 
 nav{
     width:100%;
 }
 
+canvas{
+    display:block;
+}
 
+/* Util */
+.fullHeight{
+    height:100% !important;
+}
+
+.completefill {
+    height: 100% !important;
+    width: 100% !important;
+    /*border: white solid 1px; */
+}
+
+/* Specific Settings */
 #navpanel{
     position:absolute; 
     top:5%;
@@ -19,7 +39,6 @@ nav{
 
 #navSearch{
     width: 50%;
-    margin: 0 auto;
     display: inline-block;
 }
 
@@ -29,15 +48,14 @@ nav{
 
 #content{
     width:100%;
-    height:100%;
+    height:85%;
     padding-top:1%;
-    margin: 0 auto;
     display: inline-block;
 }
 
+
 #playerDiv{
     width: 80%;
-    margin: 0 auto;
     display: inline-block;
     background-color: #232323;
     color:white;
@@ -51,46 +69,82 @@ nav{
     color:white;
 }
 
+
+/* Workspace */
 #workspaceDiv{
-    background-color:#232323;
+    height:95%;
+    width:100%;
     overflow:scroll;
-}
-
-.completefill {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 100% !important;
-    /*border: white solid 1px; */
-}
-
-#workspaceTopRow{
-    height:5%;
-}
-
-#newTrackBtn{
-    width: 100%;
-}
-
-#timelineDiv{
+    position:relative;
     background-color:#232323;
+    z-index:1;
+}
+
+#workspaceTable{
+    position: relative;
+    border:none;
+    border-collapse:collapse;
+}
+
+#workspaceHeaderRow{
+    background-color:#232323;
+}
+
+#workspaceTable thead th{
+    position: sticky;
+    top: 0;
+}
+
+
+#workspaceTable thead th:first-child {
+    left: 0;
+    z-index: 1;
+    background-color:#232323;
+  }
+
+#workspaceTable tbody th{
+    position: sticky;
+    left: 0;    
+    padding:0;
     height:100%;
 }
 
 .trackDiv{
+    width:100%;
+    height:100% !important;
     background-color:#444444;
-    height:15%;
     border-bottom: #232323 solid 1px;
     color:white;
 }
 
-.trackDiv > input{
-    height:15%;
-    width: 50%;
+#rulerDiv{  
+    background-color:#232323;
 }
 
-.deleteBtn{
-    width:5%;
-    height:15%;
-    text-align:center;
-    word-Wrap: break-word;
+#newTrackBtn{
+    width:10vw;
+}
+
+#timeDisplayText{
+    color:white;
+    /*font-family: "Orbitron";*/
+    font-family: "Share Tech Mono";
+    font-size: 16px;
+    transform: translate(0, 30%);
+}
+
+#timelineDiv{
+    position:relative;
+    z-index:-1;
+}
+
+#timelineCanvas{
+    position:absolute;
+    z-index:-2;
+    background-color:#232323;
+}
+
+#waveformContainer{
+    display:inline-block;
+    z-index:-1;
 }

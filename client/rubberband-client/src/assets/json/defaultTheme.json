@@ -1,0 +1,12 @@
+{
+    "highlightColor":"rgba(50,43,128,0.3)",
+    "cursor":{
+        "color" : "red",
+        "lineWidth" : 1
+    },
+    "timeline" : {
+        "lineColor": "white",
+        "font" : "16px Verdana",
+        "lineWidth" : 1
+    }
+}

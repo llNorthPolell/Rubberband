@@ -1,18 +1,23 @@
-<div id="workspaceDiv" class="container-fluid completefill">
-    <div class="row completefill">
-        <div class="col-6 col-md-2">
-            <div id="workspaceTopRow" class="row">
-                <div class="col completefill">
-                    <button id="newTrackBtn" class="btn btn-dark completefill" (click)="addNewTrack()">+ New Track</button>
-                </div>  
-            </div>
-            <div *ngFor="let track of tracks" id="{{track}}" class="row trackDiv">
-                <button class="btn btn-danger deleteBtn">X</button>
-                <input type="text" value="{{track}}"/>
-            </div>
-        </div>
-        <div class="col-6 col-md-10 completefill">
-            <app-timeline></app-timeline>
-        </div>
-    </div>
+<div id="workspaceDiv">
+    <table id="workspaceTable">
+        <thead>
+            <tr id="workspaceHeaderRow">
+                <th class="col-md-2"> <button id="newTrackBtn" class="btn btn-dark fullHeight" (click)="addNewTrack()">Add Track</button></th>
+                <th class="col-md-10"><app-ruler (onEmitSyncRedraw)="redraw()"></app-ruler></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let track of tracklist | keyvalue" id="{{track.key}}">
+                <th class="col-md-2">
+                    <div class="trackDiv">
+                        <button id="{{track.key}}_delete"class="btn btn-danger deleteBtn" (click)="removeTrack(track.key)">X</button>
+                        <input type="text" value="{{track.key}}"/>
+                    </div>
+                </th>
+                <td class="col-md-10">
+                    <app-timeline (onEmitSyncRedraw)="redraw()"></app-timeline>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
