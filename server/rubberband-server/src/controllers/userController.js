@@ -1,57 +1,52 @@
 const bcrypt = require('bcrypt');
 
-const user = require('../models/user');
+const User = require('../models/user');
 
 
-const Login = function (username, password){
+const Login = async (username, password) => {
 
-    user.findOne({username:username}, function(err,user){
-        if (err){
-            console.log("Error while fetching user data...");
-            //TODO: Send Response
-            return;
-        }
-        if (user){
-            bcrypt.compare(password,user.password, function(err,match){     
-                if (err){
-                    console.log("Error logging in; error: "+ err);
-                    // TODO: Send Response 
-                }   
-                if (match){
-                    console.log("Welcome back " + username +"!");
-                    // TODO: Send Response 
+    let user = await User.findOne({ username: username }).exec();
+
+    
+    return new Promise((resolve, reject) => {
+        if (user) {
+            bcrypt.compare(password, user.password, (err, match) => {
+                if (err) {
+                    console.log("Error occurred while attempting to login: " + err.message);
+                    reject(err);
                 }
-                else {
-                    console.log('Access Denied...');
-                    // TODO: Send Response 
+                if (match) {
+                    console.log("Welcome back " + username + "!");
+                    resolve({status:200,message:"Welcome back " + username + "!", data:user});
+                } else {
+                    console.log("Access denied...");
+                    resolve({status:500,message:"Access denied...", data:null});
                 }
-            });    
+            });
         }
         else {
-            console.log("Invalid user "+username+"...");
-            // TODO: Send Response 
-        }          
+            console.log("Invalid user " + username + "...");
+            resolve({status:500,message:"Invalid user " + username + "...", data:null});
+        }
     });
-
-    return true;
 }
 
 
-const Register = function (newUser){
+const Register = (newUser)=>{
     const saltRounds = 10;
     
     try{
-        bcrypt.hash(newUser.password,saltRounds,function(err,hash){
+        bcrypt.hash(newUser.password,saltRounds,(err,hash)=>{
             console.log('Hashing password...');
-            var newUserToSave = new user(newUser);
+            let newUserToSave = new user(newUser);
             newUserToSave.password = hash;
 
             console.log('Saving user to database...');
-            newUserToSave.save().then(function(err){
+            newUserToSave.save().then((err)=>{
                 console.log("User has been added to the database!");
                 // TODO: Send Response
                 return true;
-            }).catch(function(err){
+            }).catch((err)=>{
                 switch (err.code){
                     case 11000:
                         console.log("User "+ newUser.username +" already exists. Please choose another username...");

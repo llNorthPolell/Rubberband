@@ -1,20 +1,33 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+//const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
 
-var app = express();
+const dbConnection = require('./src/models/dbConnection');
+const app = express();
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/login', loginRouter);
+
+
+dbConnection.Connect(()=>{});
+
+
+app.get('/',(req,res)=>{
+    res.send('Hello World!');
+    res.status(200);
+});
+
+
+
+let server = app.listen(8080, ()=>{
+    console.log('Rubberband server is up!');
+});
+
 
 module.exports = app;
