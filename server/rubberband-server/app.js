@@ -3,6 +3,8 @@ const express = require('express');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+
 
 const dbConnection = require('./src/models/dbConnection');
 const app = express();
@@ -13,15 +15,15 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/register',registerRouter);
 
+dbConnection.Connect();
 
-dbConnection.Connect(()=>{});
-
-
+/*
 app.get('/',(req,res)=>{
     res.send('Hello World!');
     res.status(200);
-});
+});*/
 
 
 

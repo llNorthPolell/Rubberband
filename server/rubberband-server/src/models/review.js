@@ -1,34 +1,29 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const UserSchema = new schema ({
-    username: {
+const ReviewSchema = new schema ({
+    reviewId: {
         type: String,
         required: true,
         unique: true
     },
-    password: {
+    ownerId: {
         type: String,
         required: true
     },
-    email: {
+    audioId: {
         type: String,
         required: true
     },
-    createDate: {
-        type: Date,
-        required: true
+    parentId:{
+        type: String
     },
-    lastLogin: {
-        type: Date,
-        required: true
-    },
-    accountType: {
+    commment:{
         type: String,
         required: true
     }
 });
 
-const User = mongoose.model('users', UserSchema);
+const Review = mongoose.model('reviews', ReviewSchema);
 
-module.exports = User;
+module.exports = Review;

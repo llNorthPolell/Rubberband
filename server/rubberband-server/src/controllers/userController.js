@@ -12,60 +12,81 @@ const Login = async (username, password) => {
         if (user) {
             bcrypt.compare(password, user.password, (err, match) => {
                 if (err) {
-                    console.log("Error occurred while attempting to login: " + err.message);
                     reject(err);
                 }
                 if (match) {
-                    console.log("Welcome back " + username + "!");
                     resolve({status:200,message:"Welcome back " + username + "!", data:user});
                 } else {
-                    console.log("Access denied...");
                     resolve({status:500,message:"Access denied...", data:null});
                 }
             });
         }
         else {
-            console.log("Invalid user " + username + "...");
             resolve({status:500,message:"Invalid user " + username + "...", data:null});
         }
     });
 }
 
 
-const Register = (newUser)=>{
-    const saltRounds = 10;
-    
-    try{
-        bcrypt.hash(newUser.password,saltRounds,(err,hash)=>{
-            console.log('Hashing password...');
-            let newUserToSave = new user(newUser);
-            newUserToSave.password = hash;
+const Register = async (newUser)=>{
+    return new Promise((resolve, reject)=>{
+        const saltRounds = 10;
+        let failedMessages = __ValidateNewUser(newUser);
 
-            console.log('Saving user to database...');
-            newUserToSave.save().then((err)=>{
-                console.log("User has been added to the database!");
-                // TODO: Send Response
-                return true;
+        if (failedMessages.length>0){
+            resolve ({status:500,message:failedMessages.toString(), data:null});
+            return;
+        }
+
+        bcrypt.hash(newUser.password,saltRounds,(err,hash) => {
+            if (err) reject(err);
+            let newUserToSave = new User(newUser);
+            newUserToSave.password = hash;
+            newUserToSave.createDate = new Date();
+            newUserToSave.lastLogin = new Date();
+            newUserToSave.accountType = "standard";
+
+            newUserToSave.save().then(()=>{
+                resolve({status:200,message:"Registration Successful!", data:newUserToSave});
             }).catch((err)=>{
                 switch (err.code){
                     case 11000:
-                        console.log("User "+ newUser.username +" already exists. Please choose another username...");
-                        break;
+                        resolve ({status:500,message:"User "+ newUser.username +" already exists. Please choose another username...", data:null});
                     default:
                         console.log("Error in saving to database: "+ err);
-                        break;
+                        reject (err);
                 }
-                // TODO: Send Response
-                return false;             
-            });        
-        })
-    }
-    catch(err){
-        console.log("Error in hashing password: "+ err);
-        return false;
-        // TODO: Send Response
-    }
+            });
+        });
+    });
+
 }
+
+const __ValidateNewUser = (newUser) =>{
+    let failedMessages = [];
+    let emailPattern = /^[a-z0-9._-]+@[a-z_]+\.[a-z]{2,3}$/;
+
+    if (newUser.username == null){
+        failedMessages.push("Username is required...");
+    }
+        
+    if (newUser.password == null){
+        failedMessages.push("Password is required...");
+    }
+
+    if (newUser.email == null){
+        failedMessages.push("Email is required...");
+    }
+    else if (!newUser.email.toLowerCase().match(emailPattern)){
+        failedMessages.push("Email is not in valid format...");
+    }
+
+
+    return failedMessages;
+}
+
+
+
 
 module.exports.Login = Login;
 module.exports.Register = Register;

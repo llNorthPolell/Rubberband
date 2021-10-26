@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dbConfig = require('../config/dbconfig.json');
 
 
-const Connect = async (done)=>{
+const Connect = async ()=>{
     // Connect to MongoDB
     await mongoose.connect(dbConfig.connectionString, {
         autoReconnect: true,
@@ -14,10 +14,8 @@ const Connect = async (done)=>{
 
     mongoose.connection.once('open',()=>{
         console.log('Successfully connected to MongoDB!');
-        done();
     }).on('error',(error)=>{
         console.log('Connection error: '+ error);
-        done();
     }).on('reconnected',()=>{
         console.log('Connection reconnected!');
     }).on('disconnected', ()=>{

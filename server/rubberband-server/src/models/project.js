@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const UserSchema = new schema ({
-    username: {
+const ProjectSchema = new schema ({
+    projectId: {
         type: String,
         required: true,
         unique: true
     },
-    password: {
+    projectName: {
         type: String,
         required: true
     },
-    email: {
+    ownerId: {
         type: String,
         required: true
     },
@@ -19,16 +19,12 @@ const UserSchema = new schema ({
         type: Date,
         required: true
     },
-    lastLogin: {
+    lastModified: {
         type: Date,
-        required: true
-    },
-    accountType: {
-        type: String,
         required: true
     }
 });
 
-const User = mongoose.model('users', UserSchema);
+const Project = mongoose.model('projects', ProjectSchema);
 
-module.exports = User;
+module.exports = Project;

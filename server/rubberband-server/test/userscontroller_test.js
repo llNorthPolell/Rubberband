@@ -8,31 +8,63 @@ const userController = require('../src/controllers/userController')
 
 describe ('User Controller Tests', (done)=>{
     before((done)=>{
-        return dbConnection.Connect(done);
+        dbConnection.Connect().then(done,done);
     });
 
- /*   
-    it('Register', function(done){
+ /*  
+    it('Successful Registration', function(done){
         const newUser = new user({
-            username: 'newbie123',
-            password: 'asdfasdf'
+            username: 'newUser',
+            password: 'asdfasdf',
+            email: 'newUser@abc.com'
         }); 
 
-        assert(userController.Register(newUser));
-        done();
-    });
- 
-    it('Register Duplicate User', function(done){
-        const newUser = new user({
-            username: 'abcd',
-            password: 'zxcvzxcv'
-        }); 
+        userController.Register(newUser)
+            .then((result)=>{
+                console.log("Successful Registration result: "+ result.data);
+                console.log(result.message);
+                assert(result.status==200);   
+        }).then(done,done);    
 
-        assert(!userController.Register(newUser));
-        done();
+
     });
 */
+
+    it('Duplicate User', function(done){
+        const newUser = new user({
+            username: 'abcd',
+            password: '12343',
+            email: 'sdfdfd@abc.com'
+        }); 
+
+        userController.Register(newUser)
+            .then((result)=>{
+                console.log("Duplicate User result: "+ result.data);
+                console.log(result.message);
+                assert(result.status==500);   
+        }).then(done,done);    
+
+
+    });
+
+    it('Improper Email Format', function(done){
+        const newUser = new user({
+            username: 'sdfdfdf',
+            password: '12343',
+            email: 'sdfdfd@.com'
+        }); 
+
+        userController.Register(newUser)
+            .then((result)=>{
+                console.log("Improper Email Format result: "+ result.data);
+                console.log(result.message);
+                assert(result.status==500);   
+        }).then(done,done);    
+
+
+    });
     
+/* 
     it('Successful Login', (done) => {
         let username = 'abcd';
         let password = '12345678';

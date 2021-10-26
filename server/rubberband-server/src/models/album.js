@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const UserSchema = new schema ({
-    username: {
+const AlbumSchema = new schema ({
+    albumId: {
         type: String,
         required: true,
         unique: true
     },
-    password: {
+    albumName: {
         type: String,
         required: true
     },
-    email: {
+    creator: {
         type: String,
         required: true
     },
@@ -19,16 +19,11 @@ const UserSchema = new schema ({
         type: Date,
         required: true
     },
-    lastLogin: {
-        type: Date,
-        required: true
-    },
-    accountType: {
-        type: String,
-        required: true
-    }
+    tags: [{
+        type: String
+    }]
 });
 
-const User = mongoose.model('users', UserSchema);
+const Album = mongoose.model('albums', AlbumSchema);
 
-module.exports = User;
+module.exports = Album;
