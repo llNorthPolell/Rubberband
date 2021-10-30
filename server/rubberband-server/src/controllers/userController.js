@@ -4,10 +4,8 @@ const User = require('../models/user');
 
 
 const Login = async (username, password) => {
-
     let user = await User.findOne({ username: username }).exec();
 
-    
     return new Promise((resolve, reject) => {
         if (user) {
             bcrypt.compare(password, user.password, (err, match) => {
@@ -80,7 +78,6 @@ const __ValidateNewUser = (newUser) =>{
     else if (!newUser.email.toLowerCase().match(emailPattern)){
         failedMessages.push("Email is not in valid format...");
     }
-
 
     return failedMessages;
 }

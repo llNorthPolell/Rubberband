@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
+var ObjectIdSchema = schema.ObjectId;
 
 const AudioSchema = new schema ({
-    audioId: {
+    audioId:{
         type: String,
-        required: true,
-        unique: true
+        require: true
     },
     createDate: {
         type: Date,
@@ -19,6 +19,9 @@ const AudioSchema = new schema ({
         required: true
     }
 });
+
+
+
 
 const Audio = mongoose.model('audio', AudioSchema);
 
