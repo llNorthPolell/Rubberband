@@ -14,6 +14,10 @@ const AudioSchema = new schema ({
     tags: [{
         type: String
     }],
+    fileName:{
+        type: String,
+        required: true
+    },
     creator: {
         type: String,
         required: true

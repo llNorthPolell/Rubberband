@@ -5,7 +5,7 @@ const path = require('path');
 
 
 const pathConfig = require('../src/config/pathConfig.json');
-const uploadController = require('../src/controllers/uploadController');
+const audioController = require('../src/controllers/audioController');
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ const uploadAudioClip = multer({
     limits: { fileSize: 50 * 1024 * 1024 },
     abortOnLimit: true,
     fileFilter: (req,file,cb)=>{
-        if (!___isAudioFile(file)) {
+        if (!audioController.IsAudioFile(file)) {
             req.fileValidationError = "File rejected: "+ file.originalname +" is not in an acceptable format...";
             return cb(null, false,req.fileValidationError);
         }
@@ -32,7 +32,6 @@ const uploadAudioClip = multer({
         cb(null,true);
     }
 }).single('audioClip');
-
 
 
 router.post('/', (req, res) => {
@@ -47,36 +46,20 @@ router.post('/audioclip', (req, res) => {
     console.log('Running Upload Audio Clip');
     
     uploadAudioClip(req,res,(err)=>{
-        console.log(req);
-        if (req.fileValidationError){
-            res.send(req.fileValidationError)
-            res.status(500);
-            res.end();
-            return;
-        }
-        
-        if (err instanceof multer.MulterError){
-            res.send(err.message)
-            res.status(err.code);
-            res.end();
-            return;
-        }
+        let validationResult = audioController.GetValidationErrors(req,err);
 
-        if (!req.file){ 
-            res.send("No files were uploaded...")
-            res.status(500);
-            res.end();
+        if (validationResult.status!=200){
+            res.send(validationResult.message);
+            res.status(validationResult.status);
+            res.send();
             return;
         }
-        
 
         let audioClip = req.file;
-        console.log(req.body);
-
         let owner = req.body.username;
         let tags = req.body.tags;
 
-        uploadController.StoreAudioClipEntry(audioClip,owner,tags)
+        audioController.StoreAudioClipEntry(audioClip,owner,tags)
             .then((result)=>{
                 console.log(result.message);
                 res.send(result.message);
@@ -84,9 +67,7 @@ router.post('/audioclip', (req, res) => {
                 res.end();
             });
 
-    });
-
-    
+    });    
 });
 
 router.post('/song', (req, res) => {
@@ -94,12 +75,5 @@ router.post('/song', (req, res) => {
     console.log(req.body);
 
 });
-
-
-const ___isAudioFile = (file) => {
-    return file.mimetype==='audio/mpeg' || file.mimetype==='audio/wave';
-}
-
-
 
 module.exports = router;

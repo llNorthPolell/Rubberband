@@ -11,7 +11,7 @@ describe ('User Controller Tests', (done)=>{
         dbConnection.Connect().then(done,done);
     });
 
- /*  
+  
     it('Successful Registration', function(done){
         const newUser = new user({
             username: 'newUser',
@@ -28,7 +28,7 @@ describe ('User Controller Tests', (done)=>{
 
 
     });
-*/
+
 
     it('Duplicate User', function(done){
         const newUser = new user({
@@ -64,7 +64,7 @@ describe ('User Controller Tests', (done)=>{
 
     });
     
-/* 
+ 
     it('Successful Login', (done) => {
         let username = 'abcd';
         let password = '12345678';
@@ -101,10 +101,5 @@ describe ('User Controller Tests', (done)=>{
                 assert(result.data==null);
             }).then(done,done);           
     });
-
- /*   after(function(){
-        return dbConnection.Disconnect();
-    })*/
-
 
 });
